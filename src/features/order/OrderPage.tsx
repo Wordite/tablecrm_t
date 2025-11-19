@@ -131,7 +131,6 @@ export const OrderPage = () => {
   const mutation = useMutation({
     mutationFn: (conduct: boolean) => {
       if (
-        !contragentId ||
         !payboxId ||
         !organizationId ||
         !warehouseId ||
@@ -165,8 +164,8 @@ export const OrderPage = () => {
         tags: '',
         parent_docs_sales: undefined,
         comment: comment || undefined,
-        client: contragentId,
-        contragent: contragentId,
+        client: contragentId ?? undefined,
+        contragent: contragentId ?? undefined,
         contract: undefined,
         organization: organizationId,
         loyality_card_id: undefined,
@@ -224,7 +223,6 @@ export const OrderPage = () => {
 
   const isReadyToSubmit =
     Boolean(token) &&
-    Boolean(contragentId) &&
     Boolean(payboxId) &&
     Boolean(organizationId) &&
     Boolean(warehouseId) &&

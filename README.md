@@ -1,47 +1,73 @@
-# TableCRM Mobile Order Form
+# React + TypeScript + Vite
 
-Мобильное веб-приложение для создания и проведения продаж в tablecrm.com. Проект реализован на React + TypeScript, Vite, Tailwind CSS и TanStack Query для работы с REST API.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Требования
+Currently, two official plugins are available:
 
-- Node.js 18+
-- npm 9+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Установка и запуск
+## React Compiler
 
-```bash
-npm install
-npm run dev
+The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-Приложение будет доступно по адресу `http://localhost:5173`.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## Технологии
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-- React 19, TypeScript
-- Vite + @tailwindcss/vite
-- Tailwind CSS для адаптивной мобильной UI-сетки
-- Axios + TanStack Query для запросов к API tablecrm.com
-
-## Структура UI
-
-1. **Авторизация токеном** — ввод токена кассы и активация.
-2. **Поиск клиента** — поиск по телефону и выбор найденного контрагента.
-3. **Реквизиты** — выбор счета (paybox), организации, склада и типа цены.
-4. **Товары** — поиск по номенклатуре, добавление позиций в корзину.
-5. **Комментарий / итог** — комментарии и кнопки «Создать» или «Создать и провести».
-
-## Работа с API
-
-Все запросы выполняются к `https://app.tablecrm.com/api/v1` с передачей токена в строке запроса. Реализованы обертки для:
-
-- `/contragents` — поиск клиентов по телефону.
-- `/payboxes`, `/organizations`, `/warehouses`, `/price_types` — справочники.
-- `/nomenclature` — поиск товаров.
-- `/docs_sales` — отправка итогового заказа.
-
-## Дальнейшие шаги
-
-- Добавить сохранение токена и состояния формы в localStorage.
-- Реализовать подсказки по остаткам на складах и ценам.
-- Покрыть проект тестами и интегрировать Storybook для компонентов.
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

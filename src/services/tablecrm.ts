@@ -127,7 +127,7 @@ export interface CreateSalePayload {
   parent_docs_sales?: number
   comment?: string
   client?: number
-  contragent: number
+  contragent?: number
   contract?: number
   organization: number
   loyality_card_id?: number

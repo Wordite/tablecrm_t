@@ -103,7 +103,7 @@ export interface SaleGood {
   discount?: number
   sum_discounted?: number
   status?: string
-  nomenclature: number
+  nomenclature: string
   nomenclature_name?: string
 }
 

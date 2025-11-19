@@ -188,7 +188,7 @@ export const OrderPage = () => {
             discount: item.discount ?? 0,
             sum_discounted: (item.discount ?? 0) * item.quantity,
             status: conduct ? 'completed' : 'draft',
-            nomenclature: item.product.id,
+            nomenclature: String(item.product.id),
             nomenclature_name: item.product.name,
             unit_name: item.product.unit,
           }
